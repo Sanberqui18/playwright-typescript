@@ -19,7 +19,11 @@ test.describe("Contact US Page", () => {
     await page.getByLabel("Phone").first().fill("123456789");
     await page.getByLabel("Message").first().fill("secret");
 
+    await expect.soft(page.getByLabel("Message")).toHaveText("");
+
     await page.getByRole("button", { name: /submit/i }).click();
+
+    expect(test.info().errors.length).toBeLessThan(1);
 
     const message = page.getByRole("alert");
 
@@ -43,8 +47,15 @@ test.describe("Contact US Page", () => {
       .locator(".contact-message textarea")
       .fill("This is a test message");
 
+    // add a soft assertion
+    await expect.soft(page.locator(".contact-message textarea")).toHaveText("");
+
     // click submit
     await page.locator("button[type=submit]").click();
+
+    //verify there are no errors so dare in the execution
+    expect(test.info().errors.length).toBeLessThan(1);
+    // if this assertion fails the code below will not execute since it is not a soft assertion
 
     // verify success message
     const successAlert = page.locator('div[role="alert"]');

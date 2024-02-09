@@ -21,6 +21,9 @@ test.describe("Home", () => {
     //open url
     await page.goto("https://practice.sdetunicorns.com/");
 
+    //negative assertion
+    await expect(page).not.toHaveURL(/.*#get-started/);
+
     //click the get started button
     await page.locator("#get-started").click();
 
@@ -38,6 +41,7 @@ test.describe("Home", () => {
     const headingText = page.locator("text=Think different. Make different.");
 
     //verify the heading text is visible
+    await expect(headingText).not.toBeHidden();
     await expect(headingText).toBeVisible();
   });
 
