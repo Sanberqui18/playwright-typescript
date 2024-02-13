@@ -9,9 +9,11 @@ test.describe("Upload File", () => {
 
     await cartIcon.click();
 
+    await page.waitForURL(/.*cart/); // Solve adding the harcoded wait
+    //await page.waitForLoadState();
     await expect(page).toHaveURL(/.*cart/);
 
-    await page.waitForTimeout(3000); //Otherwise it will not fin the input element
+    //await page.waitForTimeout(3000); //Otherwise it will not find the input element
 
     const filePath: string = path.join(__dirname, "../data/image.png");
 
@@ -19,15 +21,17 @@ test.describe("Upload File", () => {
 
     await page.locator("#upload_1").click({ force: true });
 
-    await page.locator("#wfu_messageblock_header_1_label_1").isVisible();
+    //await page.locator("#wfu_messageblock_header_1_label_1").isVisible();
 
     await expect(page.locator("#wfu_messageblock_header_1_1")).toContainText(
       "uploaded successfully",
-      { timeout: 10000 }
+      { timeout: 15000 }
     );
   });
 
-  test("Should upload a test file (Dilpreet)", async ({ page }) => {
+  test("Should upload a test file with wait assertion (Dilpreet)", async ({
+    page,
+  }) => {
     //open url
     await page.goto("https://practice.sdetunicorns.com/cart/");
 
@@ -78,6 +82,63 @@ test.describe("Upload File", () => {
     await expect(page.locator("#wfu_messageblock_header_1_1")).toContainText(
       "uploaded successfully",
       { timeout: 10000 }
+    );
+  });
+
+  test("Should upload a test file with hardcoded wait (Dilpreet)", async ({
+    page,
+  }) => {
+    //open url
+    await page.goto("https://practice.sdetunicorns.com/cart/");
+
+    //provide file test path
+    const filePath: string = path.join(__dirname, "../data/3mb-file.png");
+
+    //upload test file
+    await page.setInputFiles("input#upfile_1", filePath);
+
+    //click on the submit button
+    await page.locator("#upload_1").click();
+
+    //harcoded sleep - WRONG WAY
+    await page.waitForTimeout(5000);
+
+    //assesrtion
+    await expect(page.locator("#wfu_messageblock_header_1_1")).toContainText(
+      "not uploaded",
+      { timeout: 10000 }
+    );
+  });
+
+  test("Should upload a test file with wait for state timeout", async ({
+    page,
+  }) => {
+    await page.goto("https://practice.sdetunicorns.com/");
+
+    const cartIcon = page.getByTitle("View your shopping cart").first();
+
+    await cartIcon.click();
+
+    await page.waitForURL(/.*cart/); // Solve adding the harcoded wait
+    //await page.waitForLoadState();
+    await expect(page).toHaveURL(/.*cart/);
+
+    //await page.waitForTimeout(3000); //Otherwise it will not find the input element
+
+    const filePath: string = path.join(__dirname, "../data/image.png");
+
+    await page.locator('input[type="file"]').setInputFiles(filePath);
+
+    await page.locator("#upload_1").click({ force: true });
+
+    // expect(
+    //   await page.locator("#wfu_messageblock_header_1_label_1").waitFor()
+    // ).toBeFalsy();
+
+    await page.locator("#wfu_messageblock_header_1_label_1").waitFor();
+
+    await expect(page.locator("#wfu_messageblock_header_1_1")).toContainText(
+      "uploaded successfully"
     );
   });
 });
