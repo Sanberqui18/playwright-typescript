@@ -1,7 +1,9 @@
 import { test, expect } from "@playwright/test";
+import CartPage from "../pages/cart.page";
 const path = require("path");
 
 test.describe("Upload File", () => {
+  let cartPage: CartPage;
   test("Should upload a test file", async ({ page }) => {
     await page.goto("https://practice.sdetunicorns.com/");
 
@@ -139,6 +141,26 @@ test.describe("Upload File", () => {
 
     await expect(page.locator("#wfu_messageblock_header_1_1")).toContainText(
       "uploaded successfully"
+    );
+  });
+
+  test("Should upload a test file with wait assertion POM with Component (Dilpreet)", async ({
+    page,
+  }) => {
+    cartPage = new CartPage(page);
+
+    //open url
+    await cartPage.navigate();
+
+    //provide file test path
+    const filePath: string = path.join(__dirname, "../data/image.png");
+
+    //upload test file and click on the submit button
+    cartPage.uploadComponent().uploadFile(filePath);
+
+    await expect(cartPage.uploadComponent().successTxt).toContainText(
+      "uploaded successfully",
+      { timeout: 10000 }
     );
   });
 });

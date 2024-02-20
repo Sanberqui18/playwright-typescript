@@ -1,6 +1,8 @@
 import { test, expect } from "@playwright/test";
+import BlogPage from "../pages/blog.page";
 
 test.describe("Blog Page ", () => {
+  let blogPage: BlogPage;
   test("Verify Recent Post count and length of each item", async ({ page }) => {
     await page.goto("https://practice.sdetunicorns.com/");
 
@@ -37,5 +39,39 @@ test.describe("Blog Page ", () => {
 
     // assert the total length = 5
     expect(await recentPostsList.count()).toEqual(5);
+  });
+
+  test("Verify Recent Post count and length of each item with POM", async ({
+    page,
+  }) => {
+    blogPage = new BlogPage(page);
+
+    await blogPage.navigate();
+
+    await expect(page).toHaveURL(/.*blog/);
+    await expect(page).toHaveTitle("Blog – Practice E-Commerce Site");
+
+    await expect(blogPage.postList).toHaveCount(5);
+
+    for (let el of await blogPage.postList.allTextContents()) {
+      expect(el.trim().length).toBeGreaterThan(10);
+    }
+  });
+
+  test("Verify Recent Post count and length of each item with POM (more methods)", async ({
+    page,
+  }) => {
+    blogPage = new BlogPage(page);
+
+    await blogPage.navigate();
+
+    await expect(page).toHaveURL(/.*blog/);
+    await expect(page).toHaveTitle("Blog – Practice E-Commerce Site");
+
+    expect(await blogPage.getBlogsQty()).toEqual(5);
+
+    for (let el of await blogPage.getBlogsList()) {
+      expect(el.trim().length).toBeGreaterThan(10);
+    }
   });
 });
