@@ -1,11 +1,35 @@
 import { test, expect } from "@playwright/test";
 import CartPage from "../pages/cart.page";
-const path = require("path");
+import path from "path";
 
 test.describe("Upload File", () => {
   let cartPage: CartPage;
+
+  const fileNames: string[] = ["image.png", "image2.png"];
+
+  for (const name of fileNames) {
+    test(`Should Upload File ${name} using Parametrized test`, async ({
+      page
+    }) => {
+      cartPage = new CartPage(page);
+
+      //open url
+      await cartPage.navigate();
+
+      //provide file test path
+      const filePath: string = path.join(__dirname, `../data/${name}`);
+
+      //upload test file and click on the submit button
+      cartPage.uploadComponent().uploadFile(filePath);
+
+      await expect(cartPage.uploadComponent().successTxt).toContainText(
+        "uploaded successfully",
+        { timeout: 10000 }
+      );
+    });
+  }
   test("Should upload a test file", async ({ page }) => {
-    await page.goto("https://practice.sdetunicorns.com/");
+    await page.goto("/");
 
     const cartIcon = page.getByTitle("View your shopping cart").first();
 
@@ -21,7 +45,7 @@ test.describe("Upload File", () => {
 
     await page.locator('input[type="file"]').setInputFiles(filePath);
 
-    await page.locator("#upload_1").click({ force: true });
+    await page.locator("#upload_1").click();
 
     //await page.locator("#wfu_messageblock_header_1_label_1").isVisible();
 
@@ -32,10 +56,10 @@ test.describe("Upload File", () => {
   });
 
   test("Should upload a test file with wait assertion (Dilpreet)", async ({
-    page,
+    page
   }) => {
     //open url
-    await page.goto("https://practice.sdetunicorns.com/cart/");
+    await page.goto("/cart/");
 
     //provide file test path
     const filePath: string = path.join(__dirname, "../data/image.png");
@@ -56,10 +80,10 @@ test.describe("Upload File", () => {
   });
 
   test("Should upload a test file on a hidden input field (Dilpreet)", async ({
-    page,
+    page
   }) => {
     //open url
-    await page.goto("https://practice.sdetunicorns.com/cart/");
+    await page.goto("/cart/");
 
     //provide file test path
     const filePath: string = path.join(__dirname, "../data/image.png");
@@ -88,10 +112,10 @@ test.describe("Upload File", () => {
   });
 
   test("Should upload a test file with hardcoded wait (Dilpreet)", async ({
-    page,
+    page
   }) => {
     //open url
-    await page.goto("https://practice.sdetunicorns.com/cart/");
+    await page.goto("/cart/");
 
     //provide file test path
     const filePath: string = path.join(__dirname, "../data/3mb-file.png");
@@ -113,9 +137,9 @@ test.describe("Upload File", () => {
   });
 
   test("Should upload a test file with wait for state timeout", async ({
-    page,
+    page
   }) => {
-    await page.goto("https://practice.sdetunicorns.com/");
+    await page.goto("/");
 
     const cartIcon = page.getByTitle("View your shopping cart").first();
 
@@ -145,7 +169,7 @@ test.describe("Upload File", () => {
   });
 
   test("Should upload a test file with wait assertion POM with Component (Dilpreet)", async ({
-    page,
+    page
   }) => {
     cartPage = new CartPage(page);
 

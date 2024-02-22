@@ -7,7 +7,7 @@ class CartPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.url = "https://practice.sdetunicorns.com/cart/";
+    this.url = "/cart/";
   }
 
   uploadComponent() {

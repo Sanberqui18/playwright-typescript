@@ -15,7 +15,7 @@ class ContactPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.url = "https://practice.sdetunicorns.com/contact";
+    this.url = "/contact";
     this.nameField = page.locator(".contact-name input");
     this.emailField = page.locator(".contact-email input");
     this.phoneFileld = page.locator(".contact-phone input");

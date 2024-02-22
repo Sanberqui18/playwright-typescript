@@ -1,10 +1,10 @@
 import { test, expect } from "@playwright/test";
 import BlogPage from "../pages/blog.page";
 
-test.describe("Blog Page ", () => {
+test.describe("Blog Page", () => {
   let blogPage: BlogPage;
   test("Verify Recent Post count and length of each item", async ({ page }) => {
-    await page.goto("https://practice.sdetunicorns.com/");
+    await page.goto("/");
 
     const contactPage = page
       .locator("#zak-primary-menu > *")
@@ -18,16 +18,16 @@ test.describe("Blog Page ", () => {
     const postList = page.locator("#recent-posts-3 ul li");
     await expect(postList).toHaveCount(5);
 
-    for (let el of await postList.allTextContents()) {
+    for (const el of await postList.allTextContents()) {
       expect(el.trim().length).toBeGreaterThan(10);
     }
   });
 
   test("Verify Recent Posts count and verify the length of each list item (Dilpreet)", async ({
-    page,
+    page
   }) => {
     // open blog page
-    await page.goto("https://practice.sdetunicorns.com/blog");
+    await page.goto("/blog");
 
     // get the recent post list elements
     const recentPostsList = page.locator("#recent-posts-3 ul li");
@@ -42,7 +42,7 @@ test.describe("Blog Page ", () => {
   });
 
   test("Verify Recent Post count and length of each item with POM", async ({
-    page,
+    page
   }) => {
     blogPage = new BlogPage(page);
 
@@ -53,13 +53,13 @@ test.describe("Blog Page ", () => {
 
     await expect(blogPage.postList).toHaveCount(5);
 
-    for (let el of await blogPage.postList.allTextContents()) {
+    for (const el of await blogPage.postList.allTextContents()) {
       expect(el.trim().length).toBeGreaterThan(10);
     }
   });
 
   test("Verify Recent Post count and length of each item with POM (more methods)", async ({
-    page,
+    page
   }) => {
     blogPage = new BlogPage(page);
 
@@ -70,7 +70,7 @@ test.describe("Blog Page ", () => {
 
     expect(await blogPage.getBlogsQty()).toEqual(5);
 
-    for (let el of await blogPage.getBlogsList()) {
+    for (const el of await blogPage.getBlogsList()) {
       expect(el.trim().length).toBeGreaterThan(10);
     }
   });
