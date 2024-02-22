@@ -1,30 +1,30 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { test, expect } from "@playwright/test";
 import HomePage from "../pages/home.page";
 
 test.describe("Home", () => {
   let homePage: HomePage;
-  test("Open HomePage and verify title", async ({ page }) => {
-    homePage = new HomePage(page);
-    //open url
-    await page.goto("https://practice.sdetunicorns.com/");
 
+  test.beforeEach(async ({ page }) => {
+    homePage = new HomePage(page);
+
+    await page.goto("/");
+  });
+
+  test("Open HomePage and verify title", async ({ page }) => {
     //verify title
     await expect(page).toHaveTitle("Practice E-Commerce Site – SDET Unicorns");
   });
 
   test("Open About Page and verify title", async ({ page }) => {
     //open url
-    await page.goto("https://practice.sdetunicorns.com/about/");
+    await page.goto("/about/");
 
     //verify title
     await expect(page).toHaveTitle("About – Practice E-Commerce Site");
   });
 
   test("Click get started button using CSS Selector", async ({ page }) => {
-    homePage = new HomePage(page);
-    //open url
-    await page.goto("https://practice.sdetunicorns.com/");
-
     //negative assertion
     await expect(page).not.toHaveURL(/.*#get-started/);
 
@@ -37,27 +37,23 @@ test.describe("Home", () => {
   });
 
   test("Verify heading text is visible using text selector", async ({
-    page,
+    page
   }) => {
-    homePage = new HomePage(page);
-    //open url
-    await page.goto("https://practice.sdetunicorns.com/");
-
     //find the heading text
     //const headingText = page.locator("text=Think different. Make different.");
     const headingText = await homePage.headingText;
 
     //verify the heading text is visible
-    await expect(headingText).not.toBeHidden();
+    //await expect(headingText).not.toBeHidden();
     await expect(headingText).toBeVisible();
   });
 
   test("Verfiy the home link is enabled using text and css selector", async ({
-    page,
+    page
   }) => {
     homePage = new HomePage(page);
     //open url
-    await page.goto("https://practice.sdetunicorns.com/");
+    await page.goto("/");
 
     //find the home text
     //const homeText = page.locator("#zak-primary-menu").filter({ hasText: "Home" });
@@ -71,12 +67,8 @@ test.describe("Home", () => {
   });
 
   test("Verfiy the search icon is visible using xpath selector", async ({
-    page,
+    page
   }) => {
-    homePage = new HomePage(page);
-    //open url
-    await page.goto("https://practice.sdetunicorns.com/");
-
     //find the home text
     // const searchIcon = page.locator(
     //   '//div[@class="zak-header-actions zak-header-actions--desktop"]//a[@class="zak-header-search__toggle"]'
@@ -89,31 +81,29 @@ test.describe("Home", () => {
   });
 
   test("Verfiy the text of all header menu links", async ({ page }) => {
-    homePage = new HomePage(page);
-
     const expectedLinks: string[] = [
       "Home",
       "About",
       "Shop",
       "Blog",
       "Contact",
-      "My account",
+      "My account"
     ];
 
     //open url
-    //await page.goto("https://practice.sdetunicorns.com/");
+    //await page.goto("/");
     await homePage.navigate();
 
     //find the header menu
-    const headerMenuList = page.locator("#zak-primary-menu > *");
-    const hearderTextBlog = page.locator("#zak-primary-menu > *").nth(3);
+    //const headerMenuList = page.locator("#zak-primary-menu > *");
+    //const hearderTextBlog = page.locator("#zak-primary-menu > *").nth(3);
 
     //verify the heading texts
     //expect(await headerMenuList.allTextContents()).toEqual(expectedLinks);
     //expect(await headerMenuList.allInnerTexts()).toEqual(expectedLinks);
     expect(await homePage.getNavLinksText()).toEqual(expectedLinks);
 
-    expect(await hearderTextBlog.textContent()).toEqual(expectedLinks[3]);
+    //expect(await hearderTextBlog.textContent()).toEqual(expectedLinks[3]);
 
     //Print out all the options and assert
     // for (const el of await headerMenuList.allTextContents()) {

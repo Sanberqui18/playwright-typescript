@@ -1,12 +1,13 @@
 import { test, expect } from "@playwright/test";
 import ContactPage from "../pages/contact.page";
+import { faker } from "@faker-js/faker";
 
 test.describe("Contact US Page", () => {
   let contactPage: ContactPage;
   test("Fill all the Contact details and verify success message", async ({
-    page,
+    page
   }) => {
-    await page.goto("https://practice.sdetunicorns.com/");
+    await page.goto("/");
 
     const contactPage = page
       .locator("#zak-primary-menu > *")
@@ -36,10 +37,10 @@ test.describe("Contact US Page", () => {
   });
 
   test("Fill contact form and verify success message (Dilpreet)", async ({
-    page,
+    page
   }) => {
     // open contact page
-    await page.goto("https://practice.sdetunicorns.com/contact");
+    await page.goto("/contact");
 
     //  fill out the input fields
     await page.locator(".contact-name input").fill("Test Name");
@@ -66,19 +67,19 @@ test.describe("Contact US Page", () => {
     );
   });
   test("Fill contact form and verify success message with POM (Dilpreet)", async ({
-    page,
+    page
   }) => {
     contactPage = new ContactPage(page);
 
     // open contact page
     await contactPage.navigate();
 
-    // fill out the input fields, verify message field and submit data
+    // fill out the input fields, verify message field and submit data with faker.js
     await contactPage.submitForm(
-      "Test Name",
-      "test@gmail.com",
-      "12345678",
-      "Message Test 123"
+      faker.person.fullName(),
+      faker.internet.email(),
+      faker.phone.number(),
+      faker.lorem.paragraphs(2)
     );
 
     //verify there are no errors so dare in the execution

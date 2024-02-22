@@ -7,7 +7,7 @@ class BlogPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.url = "https://practice.sdetunicorns.com/blog";
+    this.url = "/blog";
     this.postList = page.locator("#recent-posts-3 ul li");
   }
 
