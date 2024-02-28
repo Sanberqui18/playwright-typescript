@@ -20,9 +20,11 @@ test.describe("Contact US Page", () => {
     await page.getByLabel("Name").first().fill("Test User");
     await page.getByLabel("Email").first().fill("testuser@gmail.com");
     await page.getByLabel("Phone").first().fill("123456789");
-    await page.getByLabel("Message").first().fill("secret");
+    await page.getByRole("textbox", { name: "Message" }).fill("secret");
 
-    await expect.soft(page.getByLabel("Message")).toHaveText("");
+    await expect
+      .soft(page.getByRole("textbox", { name: "Message" }))
+      .toHaveText("");
 
     await page.getByRole("button", { name: /submit/i }).click();
 

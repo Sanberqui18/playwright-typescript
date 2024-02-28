@@ -23,13 +23,16 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: "html",
+
+  globalSetup: require.resolve("./utils/global-setup"),
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: "https://practice.sdetunicorns.com",
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer, use "on" to get the trace in the report */
-    trace: "on-first-retry"
+    trace: "on-first-retry",
+    storageState: "loggedInState.json"
   },
 
   /* Configure projects for major browsers */
