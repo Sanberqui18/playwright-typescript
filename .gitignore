@@ -3,6 +3,8 @@
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+notLoggedInState.json
+loggedInState.json
 
 # Created by https://www.toptal.com/developers/gitignore/api/node,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,macos

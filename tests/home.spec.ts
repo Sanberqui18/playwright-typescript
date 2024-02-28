@@ -112,7 +112,7 @@ test.describe("Home", () => {
     // }
 
     for (const el of await homePage.getNavLinksText()) {
-      console.log(el);
+      //console.log(el);
       expect(el).toEqual(expectedLinks[expectedLinks.indexOf(el)]);
     }
   });
