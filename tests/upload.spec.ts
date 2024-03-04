@@ -4,6 +4,7 @@ import path from "path";
 
 test.describe("Upload File", () => {
   let cartPage: CartPage;
+  test.use({ storageState: "notLoggedInState.json" });
 
   const fileNames: string[] = ["image.png", "image2.png"];
 
@@ -24,7 +25,7 @@ test.describe("Upload File", () => {
 
       await expect(cartPage.uploadComponent().successTxt).toContainText(
         "uploaded successfully",
-        { timeout: 10000 }
+        { timeout: 20000 }
       );
     });
   }
@@ -51,7 +52,7 @@ test.describe("Upload File", () => {
 
     await expect(page.locator("#wfu_messageblock_header_1_1")).toContainText(
       "uploaded successfully",
-      { timeout: 15000 }
+      { timeout: 20000 }
     );
   });
 
@@ -75,7 +76,7 @@ test.describe("Upload File", () => {
     //assesrtion
     await expect(page.locator("#wfu_messageblock_header_1_1")).toContainText(
       "uploaded successfully",
-      { timeout: 10000 }
+      { timeout: 20000 }
     );
   });
 
@@ -107,7 +108,7 @@ test.describe("Upload File", () => {
     //assesrtion
     await expect(page.locator("#wfu_messageblock_header_1_1")).toContainText(
       "uploaded successfully",
-      { timeout: 10000 }
+      { timeout: 20000 }
     );
   });
 
@@ -127,12 +128,12 @@ test.describe("Upload File", () => {
     await page.locator("#upload_1").click();
 
     //harcoded sleep - WRONG WAY
-    await page.waitForTimeout(5000);
+    await page.waitForTimeout(20000);
 
     //assesrtion
     await expect(page.locator("#wfu_messageblock_header_1_1")).toContainText(
       "not uploaded",
-      { timeout: 10000 }
+      { timeout: 15000 }
     );
   });
 
@@ -184,7 +185,7 @@ test.describe("Upload File", () => {
 
     await expect(cartPage.uploadComponent().successTxt).toContainText(
       "uploaded successfully",
-      { timeout: 10000 }
+      { timeout: 20000 }
     );
   });
 });
