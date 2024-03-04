@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "npx playwright test account.spec.ts blog.spec.ts contact.spec.ts home.spec.ts upload.spec.ts",
+    "test:workers4": "npm run test --workers 4"
+  },
   "keywords": [],
   "author": "Santiago Bernal",
   "license": "ISC",
