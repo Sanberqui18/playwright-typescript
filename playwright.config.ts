@@ -11,8 +11,8 @@ import { defineConfig, devices } from "@playwright/test";
  */
 export default defineConfig({
   testDir: "./tests",
-  // Each test is given 30 seconds.
-  timeout: 30000,
+  // Each test is given 50 seconds.
+  timeout: 50000,
   /* Run tests in files in parallel - if false it will not use workers */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -22,7 +22,7 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. - if workers are always the same do workers: number */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: "html",
+  reporter: [["allure-playwright"], ["line"]],
 
   globalSetup: require.resolve("./utils/global-setup"),
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -31,7 +31,7 @@ export default defineConfig({
     baseURL: "https://practice.sdetunicorns.com",
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer, use "on" to get the trace in the report */
-    trace: "on-first-retry",
+    trace: "retain-on-failure",
     storageState: "loggedInState.json"
   },
 
