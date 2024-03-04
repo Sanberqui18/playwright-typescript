@@ -13,13 +13,13 @@ export default defineConfig({
   testDir: "./tests",
   // Each test is given 30 seconds.
   timeout: 30000,
-  /* Run tests in files in parallel */
+  /* Run tests in files in parallel - if false it will not use workers */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
+  /* Opt out of parallel tests on CI. - if workers are always the same do workers: number */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: "html",
