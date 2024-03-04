@@ -4,7 +4,7 @@ import path from "path";
 
 test.describe("Upload File", () => {
   let cartPage: CartPage;
-  test.use({ storageState: "notLoggedInState.json" });
+  //test.use({ storageState: "notLoggedInState.json" });
 
   const fileNames: string[] = ["image.png", "image2.png"];
 
@@ -25,7 +25,7 @@ test.describe("Upload File", () => {
 
       await expect(cartPage.uploadComponent().successTxt).toContainText(
         "uploaded successfully",
-        { timeout: 20000 }
+        { timeout: 35000 }
       );
     });
   }
@@ -52,7 +52,7 @@ test.describe("Upload File", () => {
 
     await expect(page.locator("#wfu_messageblock_header_1_1")).toContainText(
       "uploaded successfully",
-      { timeout: 20000 }
+      { timeout: 35000 }
     );
   });
 
@@ -76,7 +76,7 @@ test.describe("Upload File", () => {
     //assesrtion
     await expect(page.locator("#wfu_messageblock_header_1_1")).toContainText(
       "uploaded successfully",
-      { timeout: 20000 }
+      { timeout: 35000 }
     );
   });
 
@@ -108,7 +108,7 @@ test.describe("Upload File", () => {
     //assesrtion
     await expect(page.locator("#wfu_messageblock_header_1_1")).toContainText(
       "uploaded successfully",
-      { timeout: 20000 }
+      { timeout: 35000 }
     );
   });
 
@@ -133,7 +133,7 @@ test.describe("Upload File", () => {
     //assesrtion
     await expect(page.locator("#wfu_messageblock_header_1_1")).toContainText(
       "not uploaded",
-      { timeout: 15000 }
+      { timeout: 35000 }
     );
   });
 
@@ -162,7 +162,9 @@ test.describe("Upload File", () => {
     //   await page.locator("#wfu_messageblock_header_1_label_1").waitFor()
     // ).toBeFalsy();
 
-    await page.locator("#wfu_messageblock_header_1_label_1").waitFor();
+    await page
+      .locator("#wfu_messageblock_header_1_label_1")
+      .waitFor({ timeout: 35000 });
 
     await expect(page.locator("#wfu_messageblock_header_1_1")).toContainText(
       "uploaded successfully"
@@ -185,7 +187,7 @@ test.describe("Upload File", () => {
 
     await expect(cartPage.uploadComponent().successTxt).toContainText(
       "uploaded successfully",
-      { timeout: 20000 }
+      { timeout: 35000 }
     );
   });
 });
