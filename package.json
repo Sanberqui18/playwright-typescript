@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "npx playwright test account.spec.ts blog.spec.ts contact.spec.ts home.spec.ts upload.spec.ts",
-    "test:workers4": "npm run test --workers 4"
+    "test:workers4": "npm run test --workers 4",
+    "allure-generate": "npx allure generate allure-results --clean && npx allure open",
+    "allure-clean": "rm -r allure-results/ allure-report",
+    "test:allure": "npm run test && npm run allure-generate && npm run allure-clean"
   },
   "keywords": [],
   "author": "Santiago Bernal",
@@ -16,6 +19,8 @@
     "@types/node": "^20.11.13",
     "@typescript-eslint/eslint-plugin": "^7.0.2",
     "@typescript-eslint/parser": "^7.0.2",
+    "allure-commandline": "^2.27.0",
+    "allure-playwright": "^2.13.0",
     "eslint": "^8.56.0",
     "eslint-plugin-playwright": "^1.3.0",
     "prettier": "^3.2.5"

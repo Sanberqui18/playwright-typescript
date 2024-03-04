@@ -6,6 +6,10 @@
 notLoggedInState.json
 loggedInState.json
 
+#Appure ##
+allure-report/
+allure-results/
+
 # Created by https://www.toptal.com/developers/gitignore/api/node,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,macos
 
