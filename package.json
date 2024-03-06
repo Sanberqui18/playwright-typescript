@@ -7,8 +7,8 @@
     "test": "npx playwright test account.spec.ts blog.spec.ts contact.spec.ts home.spec.ts upload.spec.ts",
     "test:workers4": "npm run test --workers 4",
     "allure-generate": "npx allure generate allure-results --clean && npx allure open",
-    "allure-clean": "rm -r allure-results/ allure-report",
-    "test:allure": "npm run test && npm run allure-generate && npm run allure-clean"
+    "allure-clean": "rm -r allure-results/ allure-report test-results",
+    "test:allure": "npm run allure-clean && npm run test && npm run allure-generate"
   },
   "keywords": [],
   "author": "Santiago Bernal",
