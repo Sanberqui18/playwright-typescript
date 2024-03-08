@@ -68,7 +68,7 @@ test.describe("Blog Page", () => {
     await expect(page).toHaveURL(/.*blog/);
     await expect(page).toHaveTitle("Blog – Practice E-Commerce Site");
 
-    expect(await blogPage.getBlogsQty()).toEqual(6);
+    expect(await blogPage.getBlogsQty()).toEqual(5);
 
     for (const el of await blogPage.getBlogsList()) {
       expect(el.trim().length).toBeGreaterThan(10);
