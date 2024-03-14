@@ -1,29 +1,16 @@
-import { test, expect, APIRequestContext, APIResponse } from "@playwright/test";
+import { test, expect, APIResponse } from "@playwright/test";
 import ContactPage from "../pages/contact.page";
+import apiController from "../controller/api.controller";
 
 test.describe("Contact US Page", () => {
   let contactPage: ContactPage;
-  let fakerApi: APIRequestContext;
   let randomPerson: APIResponse;
-  let randomComment: string;
+  let randomComment: APIResponse;
 
-  test.beforeAll(async ({ playwright }) => {
-    fakerApi = await playwright.request.newContext({
-      baseURL: "https://jsonplaceholder.typicode.com/"
-    });
-
-    const response = await fakerApi.get("users");
-    const responseBody = await response.json();
-    randomPerson = responseBody[0];
-
-    const postResponse = await fakerApi.post("users/1/todos", {
-      data: {
-        title: "Learn Playwirght",
-        completed: false
-      }
-    });
-    const postResponseBody = await postResponse.json();
-    randomComment = postResponseBody["title"];
+  test.beforeAll(async () => {
+    await apiController.init();
+    randomPerson = await apiController.getUsers();
+    randomComment = await apiController.createUserToDo();
   });
 
   test("Fill contact form using API data and verify success message with POM (Dilpreet)", async ({
@@ -39,7 +26,7 @@ test.describe("Contact US Page", () => {
       randomPerson["name"],
       randomPerson["email"],
       randomPerson["phone"],
-      randomComment
+      randomComment["title"]
     );
 
     //verify there are no errors so dare in the execution
