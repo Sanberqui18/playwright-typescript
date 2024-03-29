@@ -19,7 +19,7 @@ jobs:
       - name: Install Playwright
         run: npx playwright install --with-deps
       - name: Run Playwright tests
-        run: npx playwright test account.spec.ts blog.spec.ts contact.spec.ts home.spec.ts upload.spec.ts
+        run: npx playwright test account.spec.ts blog.spec.ts contact.spec.ts contact.api.spec.ts home.spec.ts upload.spec.ts
       - name: Upload Test Results
         if: always()
         uses: actions/upload-artifact@v4

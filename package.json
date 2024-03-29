@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx playwright test account.spec.ts blog.spec.ts contact.spec.ts home.spec.ts upload.spec.ts",
+    "test": "npx playwright test account.spec.ts blog.spec.ts contact.spec.ts contact.api.spec.ts home.spec.ts upload.spec.ts",
     "test:workers4": "npm run test --workers 4",
     "allure-generate": "npx allure generate allure-results --clean && npx allure open",
     "allure-clean": "rm -r  allure-report test-results",
